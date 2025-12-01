@@ -5,12 +5,26 @@
 import { LitElement, html, css } from "lit";
 import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
 import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
+import "./kenny-page.js";
+import "./kenny-banner.js";
+import "./kenny-arrow.js"
+import "./kenny-button.js";
+import "./kenny-calendar.js";
+import "./kenny-carousel.js";
+import "./kenny-event.js";
+import "/.kenny-logo.js";
+import "./kenny-photo.js";
+import "./kenny-social.js";
+
 
 /**
  * `kenny-emporium`
  * 
  * @demo index.html
  * @element kenny-emporium
+ * 
+ * Compiles all the different components to one .js file
+ * for simpler html.
  */
 export class KennyEmporium extends DDDSuper(I18NMixin(LitElement)) {
 
@@ -20,26 +34,15 @@ export class KennyEmporium extends DDDSuper(I18NMixin(LitElement)) {
 
   constructor() {
     super();
-    this.title = "";
-    this.t = this.t || {};
-    this.t = {
-      ...this.t,
-      title: "Title",
-    };
-    this.registerLocalization({
-      context: this,
-      localesPath:
-        new URL("./locales/kenny-emporium.ar.json", import.meta.url).href +
-        "/../",
-      locales: ["ar", "es", "hi", "zh"],
-    });
+    this.route = window.location.pathname || "/";
+    this.initRouting();
   }
 
   // Lit reactive properties
   static get properties() {
     return {
       ...super.properties,
-      title: { type: String },
+      route: { type: String },
     };
   }
 
@@ -63,13 +66,37 @@ export class KennyEmporium extends DDDSuper(I18NMixin(LitElement)) {
     `];
   }
 
+  initRouting() {
+    // Handle initial page load
+    this.route = window.location.pathname;
+    
+    // Handle browser back/forward
+    window.addEventListener('popstate', () => {
+      this.route = window.location.pathname;
+    });
+  }
+
+  handleNavigation(e) {
+    if (e.detail && e.detail.path) {
+      this.route = e.detail.path;
+      window.history.pushState({}, "", e.detail.path);
+    }
+  }
+
+  renderPage() {
+    switch(this.route) {
+      case "/schedule":
+        return html <kenny-page page="schedule"></kenny-page>;
+      case "/team":
+        return html <kenny-page page="team"></kenny-page>;
+      case "/about":
+        return html <kenny-page page="about"></kenny-page>;
+      default:
+        return html <kenny-page page="home"></kenny-page>;
+    }
+  }
   // Lit render the HTML
   render() {
-    return html`
-<div class="wrapper">
-  <h3><span>${this.t.title}:</span> ${this.title}</h3>
-  <slot></slot>
-</div>`;
   }
 
   /**
