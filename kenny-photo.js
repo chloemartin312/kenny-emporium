@@ -1,3 +1,0 @@
-/*
-A card to hold each photo with consistent display.
-*/

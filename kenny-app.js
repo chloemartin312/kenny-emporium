@@ -12,16 +12,16 @@ import "./kenny-button.js";
 import "./kenny-calendar.js";
 import "./kenny-carousel.js";
 import "./kenny-event.js";
-import "/.kenny-logo.js";
+import "./kenny-logo.js";
 import "./kenny-photo.js";
 import "./kenny-social.js";
 
 
 /**
- * `kenny-emporium`
+ * `kenny-app`
  * 
  * @demo index.html
- * @element kenny-emporium
+ * @element kenny-app
  * 
  * Compiles all the different components to one .js file
  * for simpler html.
@@ -29,7 +29,7 @@ import "./kenny-social.js";
 export class KennyEmporium extends DDDSuper(I18NMixin(LitElement)) {
 
   static get tag() {
-    return "kenny-emporium";
+    return "kenny-app";
   }
 
   constructor() {
@@ -61,7 +61,7 @@ export class KennyEmporium extends DDDSuper(I18NMixin(LitElement)) {
         padding: var(--ddd-spacing-4);
       }
       h3 span {
-        font-size: var(--kenny-emporium-label-font-size, var(--ddd-font-size-s));
+        font-size: var(--kenny-app-label-font-size, var(--ddd-font-size-s));
       }
     `];
   }
@@ -84,20 +84,34 @@ export class KennyEmporium extends DDDSuper(I18NMixin(LitElement)) {
   }
 
   renderPage() {
-    switch(this.route) {
+    switch (this.route) {
       case "/schedule":
-        return html <kenny-page page="schedule"></kenny-page>;
+        return html`<kenny-page page="schedule"></kenny-page>`;
       case "/team":
-        return html <kenny-page page="team"></kenny-page>;
+        return html`<kenny-page page="team"></kenny-page>`;
       case "/about":
-        return html <kenny-page page="about"></kenny-page>;
+        return html`<kenny-page page="about"></kenny-page>`;
       default:
-        return html <kenny-page page="home"></kenny-page>;
+        return html`<kenny-page page="home"></kenny-page>`;
     }
   }
+  
   // Lit render the HTML
   render() {
+    return html`
+      <kenny-banner></kenny-banner>
+      <div class="wrapper">
+  
+        <kenny-carousel>
+          <kenny-image src="/api/kenny-images"></kenny-image>
+        </kenny-carousel>
+  
+        ${this.renderPage()}
+  
+      </div>
+    `;
   }
+  
 
   /**
    * haxProperties integration via file reference

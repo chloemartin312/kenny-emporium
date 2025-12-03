@@ -1,0 +1,3 @@
+/*
+Component to use for each page
+*/

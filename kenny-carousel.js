@@ -1,8 +1,3 @@
-/*
-Carousel for holding images of Kenny having a grand old time.
-Makes use of the HAX Web Component "a11y-carousel".
-*/
-
 import { LitElement, html, css } from "lit";
 import { RadioBehaviors } from "@haxtheweb/radio-behaviors/radio-behaviors.js";
 import "@haxtheweb/simple-icon/lib/simple-icon-lite.js";
