@@ -99,7 +99,23 @@ export class KennyApp extends DDDSuper(I18NMixin(LitElement)) {
   // Lit render the HTML
   render() {
     return html`
-      <kenny-banner></kenny-banner>
+
+    <kenny-banner>
+      <kenny-logo slot="logo"></kenny-logo>
+      <kenny-button slot="buttons" label="Schedule" link="/schedule">
+        <a href="/schedule/games">Games</a>
+        <a href="/schedule/practice">Practice</a>
+      </kenny-button>
+      <kenny-button slot="buttons" label="Team" link="/team">
+        <a href="/team/roster">Roster</a>
+        <a href="/team/coaches">Coaches</a>
+      </kenny-button>
+      <kenny-button slot="buttons" label="About" link="/about">
+        <a href="/team/Contact">Contact</a>
+        <a href="/team/mission_statement">Mission Statement</a>
+      </kenny-button>
+    </kenny-banner>
+
       <div class="wrapper">
   
         <kenny-carousel>

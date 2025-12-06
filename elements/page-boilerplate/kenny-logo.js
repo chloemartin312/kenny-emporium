@@ -4,7 +4,7 @@ import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
 
 /**
  * `kenny-logo`
- * The code for our logo/home button in the top right
+ * The code for our logo/home button in the top left
  * 
  * @demo index.html
  * @element kenny-logo

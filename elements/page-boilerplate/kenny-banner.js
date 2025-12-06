@@ -11,7 +11,6 @@ import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
  * @element kenny-banner
  */
 export class KennyBanner extends DDDSuper(I18NMixin(LitElement)) {
-
     static get tag() {
         return "kenny-banner";
     }
@@ -24,7 +23,6 @@ export class KennyBanner extends DDDSuper(I18NMixin(LitElement)) {
     static get properties() {
         return {
             ...super.properties,
-            title: { type: String },
         };
     }
 
@@ -32,29 +30,51 @@ export class KennyBanner extends DDDSuper(I18NMixin(LitElement)) {
     static get styles() {
         return [super.styles,
         css`
-        :host {
-            display: block;
-            color: var(--ddd-theme-primary);
-            background-color: var(--ddd-theme-accent);
-            font-family: var(--ddd-font-navigation);
-        }
-        .wrapper {
-            margin: var(--ddd-spacing-2);
-            padding: var(--ddd-spacing-4);
-        }
-        h3 span {
-            font-size: var(--kenny-banner-label-font-size, var(--ddd-font-size-s));
-        }
-    `];
+            :host {
+                display: block;
+                width: 100%;
+                background-color: var(--ddd-theme-default-potentialMidnight);
+            }
+            .header {
+                width: 100%;
+                background-color: var(--ddd-theme-default-roarLight);
+                padding: var(--ddd-spacing-4) var(--ddd-spacing-6);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                box-sizing: border-box;
+            }
+            .nav-left {
+                display: flex;
+                align-items: center;
+                gap: var(--ddd-spacing-4);
+            }
+            .nav-right {
+                display: flex;
+                align-items: center;
+                gap: var(--ddd-spacing-4);
+            }
+            ::slotted(kenny-logo) {
+                display: block;
+            }
+            ::slotted(kenny-button) {
+                display: inline-block;
+            }
+        `];
     }
 
     // Lit render the HTML
     render() {
         return html`
-            <div class="wrapper">
-            <h3><span>${this.t.title}:</span> ${this.title}</h3>
-            <slot></slot>
-            </div>`;
+            <header class="header">
+                <div class="nav-left">
+                    <slot name="logo"></slot>
+                </div>
+                <div class="nav-right">
+                    <slot name="buttons"></slot>
+                </div>
+            </header>
+        `;
     }
 }
 
