@@ -14,7 +14,8 @@ import "./kenny-carousel.js";
 import "./kenny-event.js";
 import "./kenny-social.js";
 import "./kenny-image.js";
-
+const kennyHome1 = new URL("/elements/page-boilerplate/images/kenny-home1.png", import.meta.url).href;
+const kennyHome2 = new URL("/elements/page-boilerplate/images/kenny-home2.png", import.meta.url).href;
 
 /**
  * `kenny-app`
@@ -49,10 +50,24 @@ export class KennyApp extends DDDSuper(I18NMixin(LitElement)) {
   static get styles() {
     return [super.styles,
     css`
+       /* Light Theme */
+      :host {
+        --bg-color: var(--ddd-theme-default-shrineTan);
+        --text-color: var(--ddd-theme-default-landgrantBrown);
+      }
+
+      /* Dark Theme */
+      @media(prefers-color-scheme: dark) {
+        :host {
+          --bg-color: var(--ddd-theme-default-landgrantBrown);
+          --text-color: var(--ddd-theme-default-roarLight);
+        }
+      }
+
       :host {
         display: block;
-        color: var(--ddd-theme-primary);
-        background-color: var(--ddd-theme-accent);
+        color: var(--text-color);
+        background-color: var(--bg-color);
         font-family: var(--ddd-font-navigation);
         border-radius: var(--ddd-radius-lg);
       }
@@ -84,8 +99,7 @@ export class KennyApp extends DDDSuper(I18NMixin(LitElement)) {
   }
 
   renderPage() {
-    switch (this.route) {
-      case "/schedule":
+      if (this.route.startsWith("/schedule")) {
         return html`
         <kenny-page page="Schedule">
           <h2>Full Schedule</h2>
@@ -95,16 +109,17 @@ export class KennyApp extends DDDSuper(I18NMixin(LitElement)) {
           <kenny-event></kenny-event>
           <kenny-event></kenny-event>
           <kenny-event></kenny-event>
-        </kenny-page>
-      `;
-      case "/team":
+        </kenny-page>`;
+      }
+      if (this.route.startsWith("/team")) {
         return html`
         <kenny-page page="team">
           <h2>Meet the Team!</h2>
           <p>Our amazing players and staff who make everything possible.</p>
           <kenny-image src="/api/kenny-images.json"></kenny-image>
         </kenny-page>`;
-      case "/about":
+      }
+      if (this.route.startsWith("/about")) {
         return html`
         <kenny-page page="about">
           <h2>About Kenny Sports</h2>
@@ -112,7 +127,7 @@ export class KennyApp extends DDDSuper(I18NMixin(LitElement)) {
             Our mission is to provide a supportive environment for athletes of all levels to grow and succeed.</p>
           <kenny-image src="/api/kenny-images.json"></kenny-image>
         </kenny-page>`;
-      default:
+      }
         return html`
           <kenny-page page="home">
             <h2>Welcome to Kenny Sports!</h2>
@@ -127,28 +142,29 @@ export class KennyApp extends DDDSuper(I18NMixin(LitElement)) {
         `;
 
     }
-  }
-  
   // Lit render the HTML
   render() {
     return html`
       <div class="header">
         <kenny-banner>
           <kenny-animated 
-            link="/about"
+            link="/home"
             slot="logo" 
-            src="https://www.dictionary.com/e/wp-content/uploads/2018/05/cross-mark.png"
-            hoveredSrc="https://cdn-icons-png.flaticon.com/256/8631/8631570.png">
+            src="${kennyHome1}"
+            hoveredSrc="${kennyHome2}">
           </kenny-animated>
           <kenny-button slot="buttons" label="Schedule" link="/schedule">
+            <a href="/schedule">Schedule Page</a>
             <a href="/schedule/games">Games</a>
             <a href="/schedule/practice">Practice</a>
           </kenny-button>
           <kenny-button slot="buttons" label="Team" link="/team">
+            <a href="/team">Team Page</a>
             <a href="/team/roster">Roster</a>
             <a href="/team/coaches">Coaches</a>
           </kenny-button>
           <kenny-button slot="buttons" label="About" link="/about">
+            <a href="/about">About Page</a>
             <a href="/team/Contact">Contact</a>
             <a href="/team/mission_statement">Mission Statement</a>
           </kenny-button>
