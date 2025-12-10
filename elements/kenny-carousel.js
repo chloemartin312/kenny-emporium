@@ -1,10 +1,11 @@
 import { LitElement, html, css } from "lit";
 
 // Image imports like kenny-app.js
-const kennyHome1 = new URL("./page-boilerplate/images/kenny-home1.png", import.meta.url).href;
-const kennyHome2 = new URL("./page-boilerplate/images/kenny-home2.png", import.meta.url).href;
-const kennyDown  = new URL("./page-boilerplate/images/kenny-down.png",  import.meta.url).href;
-
+const kennyPic1 = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4u0bK8cSiFAxeVoxocnokGwQBlHQsqpPtGA&s";
+const kennyPic2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjkNNc9V6GrtvTOEMKsBUnkzgxKAOIMc0b_A&s";
+const kennyPic3 = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuHacROL6YTfb0CKIGBmpkemzv5BZskH4FIw&s";
+const kennyPic4 = "https://media-cdn.tripadvisor.com/media/photo-s/00/13/b8/06/kenny-the-kangaroo-kennywoods.jpg";
+const kennyPic5 = "https://media.australian.museum/media/dd/thumbnails/images/Red_Kangaroo_Peter_and_Shelly_some_rights_res.width-1200.c03bc40.jpg";
 
 export class KennyCarousel extends LitElement {
   static properties = {
@@ -15,13 +16,13 @@ export class KennyCarousel extends LitElement {
   constructor() {
     super();
     this.selectedIndex = 0;
-
-    // Default images (like kenny-app)
     this.images = [
-      kennyHome1,
-      kennyHome2,
-      kennyDown,
-    ];
+      { src: kennyPic1, caption: "Kenny celebrating a win!" },
+      { src: kennyPic2, caption: "Kenny training hard!" },
+      { src: kennyPic3, caption: "Kenny posing with the team!" },
+      { src: kennyPic4, caption: "Kenny enjoying a day out!" },
+      { src: kennyPic5, caption: "Kenny's Dad" },
+    ];    
   }
 
   static styles = css`
@@ -47,7 +48,15 @@ export class KennyCarousel extends LitElement {
       }
     }
 
+    .caption {
+      position: absolute;
+      padding: 8px;
+      font-size: 16px;
+      color: var(--ddd-theme-default-potentialMidnight);
+    }
+
     .slide {
+      position: relative;
       display: none;
       width: 400px;
       height: 300px;
@@ -82,24 +91,27 @@ export class KennyCarousel extends LitElement {
       color: var(--bg-color);
     }
 
+
     button.prev { left: 0; }
     button.next { right: 0; }
   `;
 
-  render() {
-    return html`
-      ${this.images.map(
-        (src, index) => html`
-          <div class="slide ${index === this.selectedIndex ? 'active' : ''}">
-            <img src="${src}" alt="Kenny Image ${index + 1}" />
-          </div>
-        `
-      )}
+render() {
+  return html`
+    ${this.images.map(
+      (item, index) => html`
+        <div class="slide ${index === this.selectedIndex ? 'active' : ''}">
+          <img src="${item.src}" alt="Kenny Image ${index + 1}" />
+          <div class="caption">${item.caption}</div>
+        </div>
+      `
+    )}
 
-      <button class="prev" @click=${this.prev}>&lt;</button>
-      <button class="next" @click=${this.next}>&gt;</button>
-    `;
-  }
+    <button class="prev" @click=${this.prev}>&lt;</button>
+    <button class="next" @click=${this.next}>&gt;</button>
+  `;
+}
+
 
   prev() {
     this.selectedIndex =

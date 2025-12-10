@@ -30,54 +30,64 @@ export class KennySocial extends DDDSuper(LitElement) {
     css`
 
        /* Light Theme */
-      :host {
-        --bg-color: var(--ddd-theme-default-roarLight);
-        --text-color: var(--ddd-theme-default-potentialMidnight);
-        --link-color: var(--ddd-theme-default-landgrantBrown);
-      }
+       :host {
+          display: block;
+          width: 100%;
+          margin-top: auto; /* this is fine */
+          background-color: var(--bg-color);
+          color: var(--text-color);
+        }
 
-      /* Dark Theme */
-      @media(prefers-color-scheme: dark) {
+        /* Light Theme */
         :host {
-          --bg-color: var(--ddd-theme-default-shrineTan);
-          --text-color: var(--ddd-theme-default-roarLight);
+          --bg-color: var(--ddd-theme-default-roarLight);
+          --text-color: var(--ddd-theme-default-potentialMidnight);
           --link-color: var(--ddd-theme-default-landgrantBrown);
         }
-      }
-    
-      :host {
-        display: block;
-        background-color: var(--bg-color);
-        color: var(--text-color);
-      }
-      .social-wrapper {
-        max-width: 1200px;
-        padding: var(--ddd-spacing-4);
-        text-align: center;
-      }
-      .social-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: var(--ddd-spacing-2);
-      }
-      .social-links {
-        display: flex;
-        gap: var(--ddd-spacing-8);
-      }
-      .social-link {
-        color: var(--link-color);
-        text-decoration: none;
-        font-size: var(--ddd-font-size-l);
-        transition: color 0.3s ease;
-      }
-      .social-link:hover {
-        color: var(--text-color);
-      }
-      .team-name {
-        font-size: var(--ddd-font-size-m);
-      }
+
+        /* Dark Theme */
+        @media(prefers-color-scheme: dark) {
+          :host {
+            --bg-color: var(--ddd-theme-default-shrineTan);
+            --text-color: var(--ddd-theme-default-roarLight);
+            --link-color: var(--ddd-theme-default-landgrantBrown);
+          }
+        }
+
+        .social-wrapper {
+          max-width: 1200px;
+          padding: var(--ddd-spacing-4);
+          text-align: center;
+        }
+
+        .social-content {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: var(--ddd-spacing-2);
+        }
+
+        .social-links {
+          display: flex;
+          gap: var(--ddd-spacing-8);
+        }
+
+        .social-link {
+          color: var(--link-color);
+          text-decoration: none;
+          font-size: var(--ddd-font-size-l);
+          transition: color 0.3s ease;
+        }
+
+        .social-link:hover {
+          color: var(--text-color);
+        }
+
+        .team-name {
+          font-size: var(--ddd-font-size-m);
+        }
+
     `];
   }
 
