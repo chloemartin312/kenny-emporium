@@ -64,9 +64,10 @@ export class KennySocial extends DDDSuper(LitElement) {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          flex-wrap: wrap;
+          flex-wrap: nowrap; /* prevents wrapping from breaking alignment */
           gap: var(--ddd-spacing-2);
         }
+
 
         .social-links {
           display: flex;
@@ -88,8 +89,29 @@ export class KennySocial extends DDDSuper(LitElement) {
           font-size: var(--ddd-font-size-m);
         }
 
+        @media (max-width: 600px) {
+
+        .social-content {
+          flex-direction: column;
+          text-align: center;
+          gap: var(--ddd-spacing-2);
+        }
+
+        .team-name {
+          font-size: var(--ddd-font-size-s);
+        }
+
+        .social-links {
+          gap: var(--ddd-spacing-4);
+        }
+
+        .social-link {
+          font-size: var(--ddd-font-size-m);
+        }
+        }
+
     `];
-  }
+    }
 
   render() {
     return html`

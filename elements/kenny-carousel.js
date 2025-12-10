@@ -112,15 +112,37 @@ render() {
   `;
 }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.startAutoSlide();
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    clearInterval(this._timer);
+  }
+
+  startAutoSlide() {
+    this._timer = setInterval(() => {
+      this.next();
+    }, 5000); // 5000ms = 5 seconds
+  }
+
+  resetTimer() {
+    clearInterval(this._timer);
+    this.startAutoSlide();
+  }
 
   prev() {
     this.selectedIndex =
       (this.selectedIndex - 1 + this.images.length) % this.images.length;
+    this.resetTimer();
   }
 
   next() {
     this.selectedIndex =
       (this.selectedIndex + 1) % this.images.length;
+    this.resetTimer();
   }
 }
 
